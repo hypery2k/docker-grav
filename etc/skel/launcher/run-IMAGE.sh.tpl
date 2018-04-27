@@ -40,16 +40,18 @@ EXT_HTTPS_PORT=%(CONFIG_EXT_HTTPS_PORT:-8443)
 # Upon start-up, the container will create a new administrative user if one does not already
 # exist with the given name.   To disable this, set ADMIN_USER to the string 'none'.
 
-ADMIN_USER=admin
-ADMIN_PASSWORD=ChangeMe
-ADMIN_EMAIL="nobody@nowhere.com"
+ADMIN_USER=none
+# ADMIN_USER=admin
+# ADMIN_PASSWORD=ChangeMe
+# ADMIN_EMAIL="nobody@nowhere.com"
 
 # If this directory exists and is writable, then it will be used
 # as attached storage.
 # You can change STORAGE_LOCATION to anything you wish other than the default below.
 
 STORAGE_LOCATION="$PWD/%(IMAGE_BASENAME)-storage"
-STORAGE_USER="$USER"
+STORAGE_USER="grav"
+# STORAGE_USER="$USER"
 
 # Parse the command line and override any options provided above
 
@@ -65,13 +67,13 @@ while getopts ":-dp:n:s:H:P:" o; do
       ;;
     p)
       EXT_HTTP_PORT="$OPTARG"
-      ;;      
+      ;;
     P)
       EXT_HTTPS_PORT="$OPTARG"
-      ;;      
+      ;;
     H)
       EXT_SSL_HOSTNAME="$OPTARG"
-      ;;      
+      ;;
     s)
       # The path must exist, and we need the full path if it's relative...
       [ -d "$OPTARG" ] && STORAGE_LOCATION="$(cd "$(dirname "$OPTARG")"; pwd)/$(basename "$OPTARG")"
